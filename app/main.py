@@ -4,7 +4,7 @@ from app.api.v1 import simulation, auth # 引入 auth
 from app.api.deps import get_current_user_payload
 
 from app.modules.iam.router import router as iam_router # 导入独立模块
-
+from app.api.v1.locations import router as locations_router
 
 from app.db.database import engine, Base
 # 引入你写好的 IAM User 模型，这样 Base 才能“看到”它
@@ -59,6 +59,12 @@ app.include_router(
     tags=["Simulation"],
     dependencies=[Depends(get_current_user_payload)] # 👈 保安站在这里
 )
+
+app.include_router(
+    locations_router, 
+    prefix="/api/v1", 
+    tags=["Simulation"],
+    dependencies=[Depends(get_current_user_payload)])
 
 # 4. 健康检查探针 (Health Check)
 # 用于云服务器自动检测该引擎是否存活

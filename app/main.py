@@ -62,14 +62,12 @@ app.include_router(
 app.include_router(
     locations_router, 
     prefix="/api/v1", 
-    tags=["locations"],
-    dependencies=[Depends(get_current_user_payload)])
+    tags=["locations"])
 
 app.include_router(
     payment.router, 
     prefix="/api/v1/payment", 
-    tags=["Payment - Stripe 支付"],
-    dependencies=[Depends(get_current_user_payload)])
+    tags=["Payment - Stripe 支付"])
 
 
 # 4. 健康检查探针 (Health Check)

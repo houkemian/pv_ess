@@ -61,7 +61,7 @@ async def refresh_token(
         data={
             "sub": user.id,
             "company_id": current_user.company_id,
-            "role": user.role,
+            "role": current_user.role,
             "tier": user.tier  # 🌟 这里会读取刚刚被 Stripe Webhook 改成 PRO 的最新状态！
         },
         expires_delta=access_token_expires

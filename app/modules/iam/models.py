@@ -22,6 +22,10 @@ class User(Base):
     tier = Column(String, default="FREE", nullable=False) # 比如: FREE, PRO, ENTERPRISE
     pro_expire_date = Column(DateTime, nullable=True)     # 订阅到期时间
 
+    # 🌟 新增：忘记密码的验证码及过期时间
+    reset_code = Column(String(6), nullable=True)
+    reset_code_expire = Column(DateTime, nullable=True)
+
     # 系统字段
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)

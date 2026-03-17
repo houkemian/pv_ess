@@ -4,8 +4,12 @@ from sqlalchemy.orm import Session
 from app.api.deps import get_db 
 
 from .models import User
-from .schemas import UserRegister, UserResponse
 from .security import get_password_hash
+
+import random
+from datetime import datetime, timedelta
+# 记得把刚写的 Schema 也引进来
+from .schemas import UserRegister, UserResponse, ForgotPasswordRequest, ResetPasswordRequest
 
 router = APIRouter(prefix="/auth", tags=["IAM - 身份与访问管理"])
 

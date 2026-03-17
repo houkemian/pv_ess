@@ -18,3 +18,13 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True # 允许兼容 SQLAlchemy 对象 (Pydantic V2 写法)
+
+# 请求发送验证码
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+# 提交验证码并重置密码
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    reset_code: str = Field(..., min_length=6, max_length=6)
+    new_password: str = Field(..., min_length=6, description="新密码至少6位")

@@ -1,3 +1,6 @@
+from fastapi.responses import FileResponse
+import os
+
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1 import simulation, auth # 引入 auth
@@ -9,7 +12,6 @@ from app.api.v1.locations import router as locations_router
 from app.db.database import engine, Base
 # 引入你写好的 IAM User 模型，这样 Base 才能“看到”它
 from app.modules.iam.models import User
-
 
 # 🌟 1. 必须导入 UserSettings 模型，否则 Base.metadata.create_all 看不到它！
 from app.models.user_settings import UserSettings 
@@ -79,3 +81,13 @@ async def root():
         "message": "光储大师计算引擎已启动！请访问 /docs 查看交互式 API 文档。",
         "engine_version": "V0.3 (拉美金融完全体)"
     }
+
+@app.get("/privacy", tags=["Legal"])
+@app.get("/privacy.html", tags=["Legal"])
+def get_privacy_policy():
+    return FileResponse(os.path.join("static", "privacy.html"))
+
+@app.get("/terms", tags=["Legal"])
+@app.get("/terms.html", tags=["Legal"])
+def get_terms_of_service():
+    return FileResponse(os.path.join("static", "terms.html"))
